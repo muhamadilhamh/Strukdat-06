@@ -1,35 +1,32 @@
 /*
-Program		: Exercise-04
-Nama		: Sitti Ufairoh Azzahra
-NPM			: 140810180002
-Deskripsi	: Program ini berfungsi untuk membuat phonebook dengan multi linked list
-Tanggal		: 15 April 2019
+Nama    = Muhamad Ilham Habib
+Kelas   = B
+NPM     = 140810180018
+Tahun   = 2019
+Deskripsi = Represent below data in circular doubly linked list
 */
-
-#include<iostream>
+#include <iostream>
+#include <stdlib.h>
 #include<string.h>
-
 using namespace std;
-
 struct Kontak{
- char nama[15];
- char nomor[12];
- Kontak* nextKontak;
+    char nama[10];
+    char nomor[12];
+    Kontak* nextKontak;
 };
 struct Index{
- char index[1];
- Kontak* FirstKontak;
- Index* next;
+    char index[1];
+    Kontak* FirstKontak;
+    Index*  next;
 };
 
 typedef Index* pointerIndex;
 typedef Kontak* pointerKontak;
-typedef pointerIndex list;
+typedef pointerIndex Elm;
 
-void createList(list& First){
+void createList(Elm& First){
     First=NULL;
 }
-
 void createIndex(pointerIndex& pBaru){
     pBaru= new Index;
     cout<<"Masukan Index :"; cin>>pBaru->index;
@@ -44,7 +41,7 @@ void createKontak(pointerKontak& pBaru){
     pBaru->nextKontak=NULL;
 }
 
-void traversalIndex(list First){
+void traversalIndex(Elm First){
     pointerIndex pBantu;
     pBantu=First;
     cout<<"Index :"<<endl;
@@ -54,7 +51,7 @@ void traversalIndex(list First){
     }
 }
 
-void linearSearch(list First,char key[20],int& status,pointerIndex& pCari){
+void linearSearch(Elm First,char key[20],int& status,pointerIndex& pCari){
     status=0;
     pCari=First;
     while(status==0 && pCari!=NULL){
@@ -67,7 +64,7 @@ void linearSearch(list First,char key[20],int& status,pointerIndex& pCari){
     }
 }
 
-void insertFirstIndex(list& First,pointerIndex pBaru){
+void insertFirstIndex(Elm& First,pointerIndex pBaru){
     if(First==NULL){
         First=pBaru;
     }
@@ -77,7 +74,7 @@ void insertFirstIndex(list& First,pointerIndex pBaru){
     }
 }
 
-void delFirstIndex(list& First,pointerIndex pHapus){
+void delFirstIndex(Elm& First,pointerIndex pHapus){
 	if(First==NULL){
   		cout<<"List kosong"<<endl;
  	}
@@ -92,12 +89,12 @@ void delFirstIndex(list& First,pointerIndex pHapus){
  	}
 }
 
-void insertFirstKontak(list& First,char key[20],pointerKontak pBaru){
+void insertFirstKontak(Elm& First,char key[20],pointerKontak pBaru){
  	pointerIndex pIndex;
  	int ketemu;
  	cout<<"Masukan huruf pertama yang dicari: "; cin>>key;
  	linearSearch(First,key,ketemu,pIndex);
- 
+
  	if(ketemu){
   		cout<<"Ditemukan Index :"<<pIndex->index<<endl;
   	if(pIndex->FirstKontak==NULL){
@@ -113,12 +110,12 @@ void insertFirstKontak(list& First,char key[20],pointerKontak pBaru){
  	}
 }
 
-void delFirstKontak(list& First,char key[20],pointerKontak& pHapus ){
+void delFirstKontak(Elm& First,char key[20],pointerKontak& pHapus ){
  	int ketemu;
  	pointerIndex pIndex;
  	cout<<"Masukan huruf pertama yang dicari: "; cin>>key;
  	linearSearch(First,key,ketemu,pIndex);
- 
+
  	if(ketemu){
   		cout<<"Ditemukan Index :"<<pIndex->index;
   	if(pIndex->FirstKontak==NULL){
@@ -139,13 +136,13 @@ void delFirstKontak(list& First,char key[20],pointerKontak& pHapus ){
  	}
 }
 
-void traversal(list First){
+void traversal(Elm First){
     pointerIndex pBantuIndex;
     pointerKontak pBantuKontak;
     cout<<"Traversal Index Kontak"<<endl;
     pBantuIndex=First;
-    
-    while (pBantuIndex!=NULL){ 
+
+    while (pBantuIndex!=NULL){
         cout<<"|- "<<pBantuIndex->index<<endl;
         pBantuKontak=pBantuIndex->FirstKontak;
         while (pBantuKontak!=NULL) {
@@ -157,50 +154,49 @@ void traversal(list First){
 }
 
 int main(){
-    list a;
-    int jindex,jnama;
+    Elm Elmt;
+    int index,nama;
     int pil;
     char key [20];
     pointerIndex pd,pc,phd;
     pointerKontak pk,phk;
-    createList(a);
+    createList(Elmt);
     do{
         system("CLS");
 		cout << "--------------MENU--------------" <<endl;
-		cout << "1.  Insert Index Phonebook" <<endl;
-		cout << "2.  Insert Nomor" <<endl;
-		cout << "3.  Delete Index" <<endl;
-		cout << "4.  Delete Kontak" <<endl;
-		cout << "5.  Tampilkan Phonebook" <<endl;
-		cout << "6.  Exit" <<endl;	
-		cout << "--------------------------------" <<endl;
+		cout << " | 1.  Insert Index Phonebook" <<endl;
+		cout << " | 2.  Insert Nomor" <<endl;
+		cout << " | 3.  Delete Index" <<endl;
+		cout << " | 4.  Delete Kontak" <<endl;
+		cout << " | 5.  Tampilkan Phonebook" <<endl;
+		cout << " | 6.  Exit" <<endl;
 		cout << "Pilih : "; cin >> pil;
         switch(pil){
         case 1 :
-            cout<<"Masukkan banyak Index : "; cin>>jindex;
-            for(int i=0;i<jindex;i++){
+            cout<<"Masukkan banyak Index : "; cin>>index;
+            for(int i=0;i<index;i++){
                 createIndex(pd);
-                insertFirstIndex(a,pd);
+                insertFirstIndex(Elmt,pd);
             }
             break;
         case 2 :cout<<"Masukan banyak Nama :";
-            cin>>jnama;
-            traversalIndex(a);
-            for(int i=0;i<jnama;i++){
+            cin>>nama;
+            traversalIndex(Elmt);
+            for(int i=0;i<nama;i++){
                 createKontak(pk);
-                insertFirstKontak(a,key,pk);
+                insertFirstKontak(Elmt,key,pk);
             }
             break;
         case 3 :
-            delFirstIndex(a,phd);
-            traversalIndex(a);
+            delFirstIndex(Elmt,phd);
+            traversalIndex(Elmt);
             break;
         case 4:
-            delFirstKontak(a,key,phk);
-            traversal(a);
+            delFirstKontak(Elmt,key,phk);
+            traversal(Elmt);
             break;
         case 5 :
-            traversal(a);
+            traversal(Elmt);
             break;
         default :
             exit(0);
@@ -210,5 +206,3 @@ int main(){
 
 
 }
-
-

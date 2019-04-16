@@ -1,61 +1,61 @@
 /*
-Program		: Exercise-01
-Nama		: Sitti Ufairoh Azzahra
-NPM			: 140810180002
-Deskripsi	: Program ini berfungsi untuk merepresentasikan data dalam singly linked list
-Tanggal		: 14 April 2019
+Nama    = Muhamad Ilham Habib
+Kelas   = B
+NPM     = 140810180018
+Tahun   = 2019
+Deskripsi = Represent below data in singly linked list.
 */
-#include<iostream>
+#include <iostream>
+#include <stdlib.h>
 using namespace std;
 
-struct Singly{
-	char data;
-	Singly* next;
+struct Elemtlist{
+    char data;
+    Elemtlist* next;
 };
-
-void createSingly(Singly* &pBaru){
-	pBaru = new Singly;
-	cout<<"Masukkan data : ";cin>>pBaru->data;
-	pBaru->next=NULL;
+void createList(Elemtlist* &pBaru){
+    pBaru = new Elemtlist;
+    cout<<" Masukan data =";cin>>pBaru->data;
+    pBaru->next = NULL;
 }
-void insertFirst(Singly* &first, Singly* pBaru){
-	if(first==NULL){
-		first=pBaru;
-	}else{
-		pBaru->next=first;
-		first=pBaru;
-	}
-	cout<<endl<<"Yeayyy Berhasil!"<<endl;
+void insertFirst(Elemtlist* &First, Elemtlist* pBaru){
+    if(First==NULL){
+        First=pBaru;
+    }else{
+        pBaru->next=First;
+        First=pBaru;
+    }
+    cout<<"Data sukses"<<endl;
 }
-void insertLast(Singly* &first, Singly* pBaru){
-	if(first==NULL){
-		first=pBaru;
-	}else{
-		Singly *last=first;
-		while(last->next!=NULL){
-			last=last->next;
-		}
-		last->next=pBaru;
-	}
-	cout<<endl<<"Yeayyy Berhasil!"<<endl;
+void insertLast(Elemtlist* &First, Elemtlist* pBaru){
+    if(First==NULL){
+        First=pBaru;
+    }else{
+        Elemtlist*last=First;
+        while(last->next!=NULL){
+            last=last->next;
+        }
+        last->next=pBaru;
+    }
+    cout<<"Data sukses"<<endl;
 }
-void deleteFirst(Singly* &first, Singly* &pHapus){
-	pHapus=first;
-	if(first==NULL){
+void deleteFirst(Elemtlist* &First, Elemtlist* &pHapus){
+	pHapus=First;
+	if(First==NULL){
 		pHapus=NULL;
 	}else{
-		first=first->next;
+		First=First->next;
 		pHapus->next=NULL;
 		pHapus=NULL;
 		cout<<endl<<"Berhasil Dihapus!"<<endl;
 	}
 }
-void deleteLast(Singly* &first, Singly* &pHapus){
-	pHapus=first;
-	if(first==NULL){
+void deleteLast(Elemtlist* &First, Elemtlist* &pHapus){
+	pHapus=First;
+	if(First==NULL){
 		pHapus=NULL;
 	}else{
-		Singly *prevLast;
+		Elemtlist *prevLast;
 		while(pHapus->next!=NULL){
 			prevLast=pHapus;
 			pHapus=pHapus->next;
@@ -65,27 +65,26 @@ void deleteLast(Singly* &first, Singly* &pHapus){
 		cout<<endl<<"Berhasil Dihapus!"<<endl;
 	}
 }
-void traversal(Singly* first){
-	if(first!=NULL){
-		Singly *trav=first;
-		while(trav!=NULL){
-			cout<<"'"<<trav->data<<"'";
-			if(trav->next!=NULL){
-				cout<<"->";
-			}
-			trav=trav->next;
-		}
-	}else{
-		cout<<"List Tidak Ditemukan!"<<endl;
-	}
+void traversal(Elemtlist* First){
+    if(First!=NULL){
+        Elemtlist*trav=First;
+        while(trav!=NULL){
+            cout<<"'"<<trav->data<<"'";
+            if(trav->next!=NULL){
+                cout<<"->";
+            }
+            trav=trav->next;
+        }
+    }else{
+        cout<<"List Tidak Ditemukan"<<endl;
+    }
 }
-
 int main(){
-	Singly *list=NULL,*p;
-	int pil;
-	char loop;
-	do{
-		system("CLS");
+    Elemtlist *list=NULL,*p;
+    int pil;
+    char loop;
+    do{
+      system("CLS");
 		cout << "--------MENU--------" <<endl;
 		cout << "1.  Insert First" <<endl;
 		cout << "2.  Insert Last" <<endl;
@@ -98,11 +97,11 @@ int main(){
 		}while(pil<1||pil>5);
 		switch(pil){
 			case 1:
-				createSingly(p);
+				createList(p);
 				insertFirst(list,p);
 				break;
 			case 2:
-				createSingly(p);
+				createList(p);
 				insertLast(list,p);
 				break;
 			case 3:

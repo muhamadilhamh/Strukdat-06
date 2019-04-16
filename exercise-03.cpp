@@ -1,110 +1,109 @@
 /*
-Program		: Exercise-02
-Nama		: Sitti Ufairoh Azzahra
-NPM			: 140810180002
-Deskripsi	: Program ini berfungsi untuk merepresentasikan data dalam circular doubly linked list
-Tanggal		: 14 April 2019
+Nama    = Muhamad Ilham Habib
+Kelas   = B
+NPM     = 140810180018
+Tahun   = 2019
+Deskripsi = Represent below data in circular doubly linked list
 */
-#include<iostream>
+#include <iostream>
+#include <stdlib.h>
 using namespace std;
-
-struct Circular{
-	char data;
-	Circular* next;
-	Circular* prev;
+struct Elemtlist{
+    char data;
+    Elemtlist* next;
+    Elemtlist* prev;
 };
-
-void createCircular(Circular* &pBaru){
-	pBaru = new Circular;
-	cout<<"\nMasukkan data : ";cin>>pBaru->data;
-	pBaru->next=NULL;
-	pBaru->prev=NULL;
+void createList(Elemtlist* &pBaru){
+    pBaru = new Elemtlist;
+    cout<<"Masukan data =";cin>>pBaru->data;
+    pBaru->next=NULL;
+    pBaru->prev=NULL;
 }
-void insertFirst(Circular* &first, Circular* pBaru){
-	if(first==NULL){
-		first=pBaru;
-		first->next=first;
-		first->prev=first;
+void insertFirst(Elemtlist* &First, Elemtlist* &pBaru){
+    if(First==NULL){
+		First=pBaru;
+		First->next=First;
+		First->prev=First;
 	}else{
-		pBaru->next=first;
-		pBaru->prev=first->prev;
-		first->prev->next=pBaru;
-		first->prev=pBaru;
-		first=pBaru;
+		pBaru->next=First;
+		pBaru->prev=First->prev;
+		First->prev->next=pBaru;
+		First->prev=pBaru;
+		First=pBaru;
 	}
-	cout<<endl<<"Yeayyy Berhasil!"<<endl;
+	cout<<endl<<"Data berhasil "<<endl;
 }
-void insertLast(Circular* &first, Circular* pBaru){
-	if(first==NULL){
-		first=pBaru;
-		pBaru->next=first;
-		pBaru->prev=first;
+void insertLast(Elemtlist* &First, Elemtlist* pBaru){
+	if(First==NULL){
+		First=pBaru;
+		pBaru->next=First;
+		pBaru->prev=First;
 	}else{
-		Circular *last=first;
-		while(last->next!=first){
+		Elemtlist *last=First;
+		while(last->next!=First){
 			last=last->next;
 		}
 		last->next=pBaru;
 		pBaru->prev=last;
-		pBaru->next=first;
-		first->prev=pBaru;
+		pBaru->next=First;
+		First->prev=pBaru;
 	}
-	cout<<endl<<"Yeayyy Berhasil!"<<endl;
+	cout<<endl<<"Data Berhasil"<<endl;
 }
-void deleteFirst(Circular* &first, Circular* &pHapus){
-	pHapus=first;
-	if(first==NULL){
+void deleteFirst(Elemtlist* &First, Elemtlist* &pHapus){
+	pHapus=First;
+	if(First==NULL){
 		pHapus=NULL;
-		cout<<endl<<"Tidak Terhapus"<<endl;
-	}else if(first->next==first){
-		first->next=NULL;
-		first->prev=NULL;
-		first=NULL;
-		cout<<endl<<"Berhasil Delete Firstnya!"<<endl;
+		cout<<"Data tidak terhapus"<<endl;
+	}else if(First->next==First){
+		First->next=NULL;
+		First->prev=NULL;
+		First=NULL;
+		cout<<"Data berhasil dihapus"<<endl;
 	}else{
-		first->next->prev=first->prev;
-		first->prev->next=first->next;
-		first=first->next;
+		First->next->prev=First->prev;
+		First->prev->next=First->next;
+		First=First->next;
 		pHapus->next=NULL;
 		pHapus->prev=NULL;
 		pHapus=NULL;
-		cout<<endl<<"Berhasil Delete Firstnya!"<<endl;
+		cout<<endl<<"Data berhasil dihapus"<<endl;
 	}
 }
-void deleteLast(Circular* &first, Circular* &pHapus){
-	pHapus=first;
+void deleteLast(Elemtlist* &First, Elemtlist* &pHapus){
+	pHapus=First;
 	if(pHapus==NULL){
 		pHapus=NULL;
-		cout<<endl<<"Tidak Terhapus"<<endl;
-	}else if(first->next==first){
-		first->next=NULL;
-		first->prev=NULL;
-		first=NULL;
-		cout<<endl<<"Berhasil Delete Lastnya!"<<endl;
+		cout<<"Data Tidak Terhapus"<<endl;
+	}else if(First->next==First){
+		First->next=NULL;
+		First->prev=NULL;
+		First=NULL;
+		cout<<"Data berhasil dihapus"<<endl;
 	}else{
-		Circular *prevLast;
-		while(pHapus->next!=first){
+		Elemtlist *prevLast;
+		while(pHapus->next!=First){
 			prevLast=pHapus;
 			pHapus=pHapus->next;
 		}
-		prevLast->next=first;
+		prevLast->next=First;
 		pHapus->prev=NULL;
 		pHapus->next=NULL;
 		pHapus=NULL;
-		cout<<endl<<"Berhasil Delete Lastnya!"<<endl;
+		cout<<"Data berhasil dihapus"<<endl;
 	}
 }
-void traversal(Circular* first){
-	if(first!=NULL){
-		Circular *trav=first;
+void traversal(Elemtlist* First){
+	if(First!=NULL){
+		Elemtlist *trav=First;
 		cout<<"...<-->";
 		do{
 			cout<<"'"<<trav->data<<"'";
-			if(trav->next!=first){
+			if(trav->next!=First){
 				cout<<"<-->";
 			}
 			trav=trav->next;
-		}while(trav!=first);
+		}while(trav!=First);
 		cout<<"<-->...";
 	}else{
 		cout<<"List Tidak Ada!"<<endl;
@@ -112,10 +111,11 @@ void traversal(Circular* first){
 }
 
 int main(){
-	Circular *list=NULL,*c;
-	int pil;char loop;
-	do{
-		system("CLS");
+    Elemtlist *list=NULL,*p;
+    int pil;
+    char loop;
+    do{
+        system("CLS");
 		cout << "--------MENU--------" <<endl;
 		cout << "1.  Insert First" <<endl;
 		cout << "2.  Insert Last" <<endl;
@@ -128,18 +128,18 @@ int main(){
 		}while(pil<1||pil>5);
 		switch(pil){
 			case 1:
-				createCircular(c);
-				insertFirst(list,c);
+				createList(p);
+				insertFirst(list,p);
 				break;
 			case 2:
-				createCircular(c);
-				insertLast(list,c);
+				createList(p);
+				insertLast(list,p);
 				break;
 			case 3:
-				deleteFirst(list,c);
+				deleteFirst(list,p);
 				break;
 			case 4:
-				deleteLast(list,c);
+				deleteLast(list,p);
 				break;
 			case 5:
 				traversal(list);
@@ -151,3 +151,4 @@ int main(){
 		}while(loop!='Y'&&loop!='y'&&loop!='N'&&loop!='n');
 	}while(loop=='Y'||loop=='y');
 }
+

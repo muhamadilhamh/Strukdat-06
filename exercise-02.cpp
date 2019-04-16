@@ -1,65 +1,64 @@
 /*
-Program		: Exercise-02
-Nama		: Sitti Ufairoh Azzahra
-NPM			: 140810180002
-Deskripsi	: Program ini berfungsi untuk merepresentasikan data dalam doubly linked list
-Tanggal		: 14 April 2019
+Nama    = Muhamad Ilham Habib
+Kelas   = B
+NPM     = 140810180018
+Tahun   = 2019
+Deskripsi = Represent below data in doubly linked list
 */
-#include<iostream>
+#include <iostream>
+#include <stdlib.h>
 using namespace std;
-
-struct Doubly{
-	char data;
-	Doubly* next;
-	Doubly* prev;
+struct ElemtList{
+    char data;
+    ElemtList* next;
+    ElemtList* prev;
 };
-
-void createDoubly(Doubly* &pBaru){
-	pBaru = new Doubly;
-	cout<<"\nMasukkan data : ";cin>>pBaru->data;
-	pBaru->next=NULL;
-	pBaru->prev=NULL;
+void createList(ElemtList* &pBaru){
+    pBaru = new ElemtList;
+    cout<<"Mausukan data =";cin>>pBaru->data;
+    pBaru->next=NULL;
+    pBaru->prev=NULL;
 }
-void insertFirst(Doubly* &first, Doubly* pBaru){
-	if(first==NULL){
-		first=pBaru;
-	}else{
-		pBaru->next=first;
-		first->prev=pBaru;
-		first=pBaru;
-	}
-	cout<<endl<<"Yeayy Berhasil!"<<endl;
+void insertFirst(ElemtList* &First, ElemtList* pBaru){
+    if(First==NULL){
+        First=pBaru;
+    }else{
+        pBaru->next=First;
+        First->prev=pBaru;
+        First=pBaru;
+    }
+    cout<<"Data Berhasil"<<endl;
 }
-void insertLast(Doubly* &first, Doubly* pBaru){
-	if(first==NULL){
-		first=pBaru;
-	}else{
-		Doubly *last=pBaru;
-		while(last->next!=NULL){
-			last=last->next;
-		}
-		last->next=pBaru;
-		pBaru->prev=last;
-	}
-	cout<<endl<<"Yeayyy Berhasil!"<<endl;
+void insertLast(ElemtList* &First, ElemtList* pBaru){
+    if(First==NULL){
+        First=pBaru;
+    }else{
+        ElemtList *last=pBaru;
+        while(last->next!=NULL){
+            last=last->next;
+        }
+        last->next=pBaru;
+        pBaru->prev=last;
+    }
+    cout<<"Data Berhasil"<<endl;
 }
-void deleteFirst(Doubly* &first, Doubly* &pHapus){
-	pHapus=first;
-	if(first==NULL){
+void deleteFirst(ElemtList* &First, ElemtList* &pHapus){
+    pHapus=First;
+    if(First==NULL){
+        pHapus=NULL;
+    }else{
+        First=First->next;
+        pHapus->next=NULL;
+        pHapus=NULL;
+        cout<<"Berhasil dihapus"<<endl;
+    }
+}
+void deleteLast(ElemtList* &First, ElemtList* &pHapus){
+    pHapus=First;
+	if(First==NULL){
 		pHapus=NULL;
 	}else{
-		first=first->next;
-		pHapus->next=NULL;
-		pHapus=NULL;
-		cout<<endl<<"Berhasil Dihapus!"<<endl;
-	}
-}
-void deleteLast(Doubly* &first, Doubly* &pHapus){
-	pHapus=first;
-	if(first==NULL){
-		pHapus=NULL;
-	}else{
-		Doubly *prevLast;
+		ElemtList *prevLast;
 		while(pHapus->next!=NULL){
 			prevLast=pHapus;
 			pHapus=pHapus->next;
@@ -70,26 +69,26 @@ void deleteLast(Doubly* &first, Doubly* &pHapus){
 		cout<<endl<<"Berhasil Dihapus!"<<endl;
 	}
 }
-void traversal(Doubly* first){
-	if(first!=NULL){
-		Doubly *trav=first;
-		while(trav!=NULL){
-			cout<<"'"<<trav->data<<"'";
-			if(trav->next!=NULL){
-				cout<<"<-->";
-			}
-			trav=trav->next;
-		}
-	}else{
-		cout<<"List tidak ditemukan!"<<endl;
-	}
+void traversal(ElemtList* First){
+    if(First!=NULL){
+        ElemtList *trav=First;
+        while(trav!=NULL){
+            cout<<"'"<<trav->data<<"'";
+            if(trav->next!=NULL){
+                cout<<"<-->";
+            }
+            trav=trav->next;
+        }
+    }else{
+        cout<<"List Tidak Ditemukan"<<endl;
+    }
 }
-
 int main(){
-	Doubly *list=NULL,*d;
-	int pil;char loop;
-	do{
-		system("CLS");
+    ElemtList *list=NULL, *p;
+    int pil;
+    char loop;
+    do{
+        system("CLS");
 		cout << "--------MENU--------" <<endl;
 		cout << "1.  Insert First" <<endl;
 		cout << "2.  Insert Last" <<endl;
@@ -102,18 +101,18 @@ int main(){
 		}while(pil<1||pil>5);
 		switch(pil){
 			case 1:
-				createDoubly(d);
-				insertFirst(list,d);
+				createList(p);
+				insertFirst(list,p);
 				break;
 			case 2:
-				createDoubly(d);
-				insertLast(list,d);
+				createList(p);
+				insertLast(list,p);
 				break;
 			case 3:
-				deleteFirst(list,d);
+				deleteFirst(list,p);
 				break;
 			case 4:
-				deleteLast(list,d);
+				deleteLast(list,p);
 				break;
 			case 5:
 				traversal(list);
@@ -125,3 +124,6 @@ int main(){
 		}while(loop!='Y'&&loop!='y'&&loop!='N'&&loop!='n');
 	}while(loop=='Y'||loop=='y');
 }
+
+
+
